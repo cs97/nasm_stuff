@@ -19,7 +19,6 @@ section .data
 	logo7 db "||                                          ||", 0x0a
 	logo8 db "|| 0. exit                                  ||", 0x0a
 	logo9 db "==============================================", 0x0a
-	logolen equ $ - logo1
 	len equ $ - logo9
 
 section .bss
@@ -33,8 +32,8 @@ start:
 
 _menu:
 	mov rax, len
-    mov rdx, 9
-    mul rdx
+	mov rdx, 9
+	mul rdx
 	mov rdx, rax
 	mov	rax, 4
 	mov	rbx, 1
