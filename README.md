@@ -58,7 +58,10 @@ section .data
 	
 	text2 times 255 db 0
 	len_text2 equ $ - text2
-
+	
+section .text
+	global _start
+	
 _start:
 	print_txt text, len
 	read_txt text2, len_text2
