@@ -24,8 +24,8 @@ section .text
 	global _start
 
 _start:
-  print_txt text, len
-  jmp _exit
+	print_txt text, len
+	jmp _exit
   
 _exit:
 	mov	rax, 1		;sys_exit
