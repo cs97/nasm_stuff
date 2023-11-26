@@ -2,8 +2,8 @@
 nasm
 ```
 nasm -felf64 prog.asm
-ld prog.o
-./a.out
+ld prog.o -o Programname
+./Programname
 ```
 
 ### print.asm
