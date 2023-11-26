@@ -73,7 +73,43 @@ _exit:
 	mov rbx, 0
 	int 0x80	
 ```
+### write file
+```
+section .data
+	filename db "lel.txt",0
+	text db "lul"
+	textlen equ $ - text
 
+section .text
+	global _start
+
+_start:
+
+	; open file
+	mov rax, 2		;SYS_OPEN
+	mov rdi, filename       ;
+	mov rsi, 65             ;CREAT=64, write_only=1, read_only=0
+	mov rdx, 0666o          ;permission
+	syscall
+
+	; write file
+	push rax
+	mov rdi, rax
+	mov rax, 1              ;SYS_WRITE
+	mov rsi, text           ;String to write
+	mov rdx, textlen        ;length of the String
+	syscall
+
+	; close file
+	mov rax, 3              ;SYS_CLOSE
+	pop rdi
+	syscall
+
+	; exit
+	mov rax, 60
+	syscall
+
+```
 
 
 
