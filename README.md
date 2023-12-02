@@ -9,10 +9,10 @@ ld prog.o -o Programname
 ### print.asm
 ```
 %macro print_txt 2
-	mov	rax, 1		;system call number (sys_write)
-	mov	rdi, 1		;file descriptor (stdout)
-	mov	rsi, %1		;message to write
-	mov	rdx, %2		;message length
+	mov	rax, 1		; system call number (sys_write)
+	mov	rdi, 1		; file descriptor (stdout)
+	mov	rsi, %1		; message to write
+	mov	rdx, %2		; message length
 	syscall
 %endmacro
 
@@ -28,8 +28,8 @@ _start:
 	jmp _exit
   
 _exit:
-	mov	rax, 60		;sys_exit
-	mov	rdi,0		;EXIT_SUCCESS
+	mov	rax, 60		; sys_exit
+	mov	rdi,0		; EXIT_SUCCESS
 	syscall
 ```
 
@@ -37,10 +37,10 @@ _exit:
 ### readprint.asm
 ```
 %macro print_txt 2
-	mov	rax, 1		;system call number (sys_write)
-	mov	rdi, 1		;file descriptor (stdout)
-	mov	rsi, %1		;message to write
-	mov	rdx, %2		;message length
+	mov	rax, 1		; system call number (sys_write)
+	mov	rdi, 1		; file descriptor (stdout)
+	mov	rsi, %1		; message to write
+	mov	rdx, %2		; message length
 	syscall
 %endmacro
 %macro read_txt 2
@@ -69,8 +69,8 @@ _start:
 	jmp _exit
   
 _exit:
-	mov	rax, 60		;sys_exit
-	mov	rdi,0		;EXIT_SUCCESS
+	mov	rax, 60		; sys_exit
+	mov	rdi,0		; EXIT_SUCCESS
 	syscall
 ```
 ### write file
@@ -86,22 +86,22 @@ section .text
 _start:
 
 	; open file
-	mov rax, 2		;SYS_OPEN
+	mov rax, 2		; SYS_OPEN
 	mov rdi, filename       ;
-	mov rsi, 65             ;CREAT=64, write_only=1, read_only=0
-	mov rdx, 0666o          ;permission
+	mov rsi, 65             ; CREAT=64, write_only=1, read_only=0
+	mov rdx, 0666o          ; permission
 	syscall
 
 	; write file
 	push rax
 	mov rdi, rax
-	mov rax, 1              ;SYS_WRITE
-	mov rsi, text           ;String to write
-	mov rdx, textlen        ;length of the String
+	mov rax, 1              ; SYS_WRITE
+	mov rsi, text           ; String to write
+	mov rdx, textlen        ; length of the String
 	syscall
 
 	; close file
-	mov rax, 3              ;SYS_CLOSE
+	mov rax, 3              ; SYS_CLOSE
 	pop rdi
 	syscall
 
