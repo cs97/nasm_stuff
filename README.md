@@ -9,10 +9,10 @@ ld prog.o -o Programname
 ### print.asm
 ```
 %macro print_txt 2
-	mov	rax, 4
-	mov	rbx, 1
-	mov	rcx, %1
-	mov	rdx, %2		;maxBytesToPrint
+	mov	rax, 4		;system call number (sys_write)
+	mov	rbx, 1		;file descriptor (stdout)
+	mov	rcx, %1		;message to write
+	mov	rdx, %2		;message length
 	int	80h
 %endmacro
 
