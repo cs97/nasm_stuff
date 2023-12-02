@@ -9,11 +9,11 @@ ld prog.o -o Programname
 ### print.asm
 ```
 %macro print_txt 2
-	mov	rax, 4		;system call number (sys_write)
-	mov	rbx, 1		;file descriptor (stdout)
-	mov	rcx, %1		;message to write
+	mov	rax, 1		;system call number (sys_write)
+	mov	rdi, 1		;file descriptor (stdout)
+	mov	rsi, %1		;message to write
 	mov	rdx, %2		;message length
-	int	80h
+	syscall
 %endmacro
 
 section .data
@@ -28,27 +28,27 @@ _start:
 	jmp _exit
   
 _exit:
-	mov	rax, 1		;sys_exit
-	mov	rbx,0
-	int	0x80
+	mov	rax, 60		;sys_exit
+	mov	rdi,0		;EXIT_SUCCESS
+	syscall
 ```
 
 
 ### readprint.asm
 ```
 %macro print_txt 2
-	mov	rax, 4
-	mov	rbx, 1
-	mov	rcx, %1
-	mov	rdx, %2		;maxBytesToPrint
-	int	80h
+	mov	rax, 1		;system call number (sys_write)
+	mov	rdi, 1		;file descriptor (stdout)
+	mov	rsi, %1		;message to write
+	mov	rdx, %2		;message length
+	syscall
 %endmacro
 %macro read_txt 2
-	mov	rax, 0x3
-	mov	rbx, 0x1
-	mov	rcx, %1
-	mov	rdx, %2		;maxBytesToRead
-	int	80h
+	mov	rax, 0		; system call number (sys_read)
+	mov	rdi, 0		; standard input
+	mov	rsi, text2	
+	mov	rdx, len2	
+	syscall
 %endmacro
 
 section .data
@@ -69,9 +69,9 @@ _start:
 	jmp _exit
   
 _exit:
-	mov rax, 1		;sys_exit
-	mov rbx, 0
-	int 0x80	
+	mov	rax, 60		;sys_exit
+	mov	rdi,0		;EXIT_SUCCESS
+	syscall
 ```
 ### write file
 ```
