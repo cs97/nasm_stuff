@@ -21,20 +21,20 @@ ld prog.o -o Programname
 %macro read_txt 2
 	mov	rax, 0		; system call number (sys_read)
 	mov	rdi, 0		; standard input
-	mov	rsi, text2	
-	mov	rdx, len2	
+	mov	rsi, %1		; Buffer
+	mov	rdx, %2		; Buffer size
 	syscall
 %endmacro
 
 ; read first command line argument 
-%macro args 0
+%macro args 1
 	pop	r8		; get the numer aof arguments
 	pop	rsi		; pop the program name of the stack
 
 	cmp	r8, 0		; check if we have arguments
 	jz	%%skip
 
-	pop	rsi	
+	pop	%1
 %%skip:
 %endmacro
 
