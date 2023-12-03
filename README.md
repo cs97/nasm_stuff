@@ -6,6 +6,40 @@ ld prog.o -o Programname
 ./Programname
 ```
 
+### some macros
+```
+; print
+%macro print_txt 2
+	mov	rax, 1		; system call number (sys_write)
+	mov	rdi, 1		; file descriptor (stdout)
+	mov	rsi, %1		; message to write
+	mov	rdx, %2		; message length
+	syscall
+%endmacro
+
+;read userinput
+%macro read_txt 2
+	mov	rax, 0		; system call number (sys_read)
+	mov	rdi, 0		; standard input
+	mov	rsi, text2	
+	mov	rdx, len2	
+	syscall
+%endmacro
+
+; read first command line argument 
+%macro args 0
+	pop	r8		; get the numer aof arguments
+	pop	rsi		; pop the program name of the stack
+
+	cmp	r8, 0		; check if we have arguments
+	jz	%%skip
+
+	pop	rsi	
+%%skip:
+%endmacro
+
+```
+
 ### print.asm
 ```
 %macro print_txt 2
