@@ -2,7 +2,13 @@
 nasm
 ```
 nasm -felf64 prog.asm
+```
+```
 ld prog.o -o Programname
+OR
+ld -s -static -z noseparate-code prog.o -o Programname
+```
+```
 ./Programname
 ```
 
